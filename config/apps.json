@@ -1,4 +1,14 @@
 [
   { "name": "VS Code", "id": "Microsoft.VisualStudioCode" },
-  { "name": "Git", "id": "Git.Git" }
+  { "name": "Git (Somente CLI)", "id": "Git.Git", "args": "--override \"/Components=gitlfs,assoc,assoc_sh\"" },
+  { "name": "Feishin", "id": "jeffvli.Feishin" },
+  { "name": "Zen Browser", "id": "Zen-Team.Zen-Browser" },
+  { "name": "Helium", "id": "ImputNet.Helium" },
+  { "name": "Steam", "id": "Valve.Steam" },
+  { "name": "Audacity", "id": "Audacity.Audacity" },
+  { "name": "Discord", "id": "Discord.Discord" },
+  { "name": "VLC Media Player", "id": "VideoLAN.VLC" },
+  { "name": "7-Zip", "id": "7zip.7zip" },
+  { "name": "Python 3", "id": "Python.Python.3" },
+  { "name": "Node.js LTS", "id": "OpenJS.NodeJS.LTS" }
 ]

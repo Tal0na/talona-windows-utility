@@ -1,6 +1,6 @@
 import unittest
-from unittest.mock import patch
-from core.installer import build_command, install_apps
+from unittest.mock import patch, MagicMock
+from core.installer import build_command, install_apps, is_app_available
 
 class TestInstaller(unittest.TestCase):
 
@@ -8,13 +8,27 @@ class TestInstaller(unittest.TestCase):
         cmd = build_command("Git.Git")
         self.assertEqual(cmd, "winget install -e --id Git.Git")
 
+    @patch("subprocess.run")
+    def test_is_app_available_success(self, mock_run):
+        mock_run.return_value = MagicMock(returncode=0)
+        self.assertTrue(is_app_available("Git.Git"))
+
+    @patch("core.installer.is_app_available")
     @patch("core.installer.run_command")
-    def test_install_apps(self, mock_run):
-        apps = [{"name": "Git", "id": "Git.Git"}]
-
+    # REMOVI o patch do print aqui para você ver as mensagens na tela
+    def test_install_apps_summary(self, mock_run, mock_check):
+        apps = [
+            {"name": "AppBom", "id": "ID.Certo"},
+            {"name": "AppRuim", "id": "ID.Errado"}
+        ]
+        
+        # Simula: o primeiro funciona (True), o segundo não (False)
+        mock_check.side_effect = [True, False]
+        
+        print("\n" + "="*40)
+        print("INICIANDO TESTE DE RESUMO:")
         install_apps(apps)
-
-        mock_run.assert_called_once()
-
-if __name__ == "__main__":
-    unittest.main()
+        print("="*40)
+        
+        # O teste passa se o mock_run foi chamado apenas 1 vez (para o AppBom)
+        self.assertEqual(mock_run.call_count, 1)
