@@ -15,8 +15,24 @@ def start_menu():
             install_apps(apps)
 
         elif escolha == "2":
-            from core.tweaks import apply_tweaks
-            apply_tweaks()
+                    from core.tweaks import ALL_TWEAKS
+                    
+                    while True:
+                        print("\n=== 🛠️  Menu de Tweaks (Personalização) ===")
+                        for i, tweak in enumerate(ALL_TWEAKS, 1):
+                            print(f"{i}. {tweak.INFO['name']} - {tweak.INFO['desc']}")
+                        
+                        print("0. Voltar")
+                        op = input("\nEscolha o tweak: ")
+                        
+                        if op == "0":
+                            break
+                        
+                        try:
+                            idx = int(op) - 1
+                            ALL_TWEAKS[idx].run()
+                        except (ValueError, IndexError):
+                            print("Opção inválida!")
 
         elif escolha == "3":
             from modules.personalization import run
